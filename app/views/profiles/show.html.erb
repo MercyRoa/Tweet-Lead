@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @profile.name %>
+</p>
+
+<p>
+  <b>Screen name:</b>
+  <%= @profile.screen_name %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%= @profile.created_at %>
+</p>
+
+<p>
+  <b>Followers count:</b>
+  <%= @profile.followers_count %>
+</p>
+
+<p>
+  <b>Friends count:</b>
+  <%= @profile.friends_count %>
+</p>
+
+<p>
+  <b>Twitter:</b>
+  <%= @profile.twitter_id %>
+</p>
+
+<p>
+  <b>Lang:</b>
+  <%= @profile.lang %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @profile.location %>
+</p>
+
+<p>
+  <b>Profile image url:</b>
+  <%= @profile.profile_image_url %>
+</p>
+
+<p>
+  <b>Protected:</b>
+  <%= @profile.protected %>
+</p>
+
+<p>
+  <b>Time zone:</b>
+  <%= @profile.time_zone %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @profile.description %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @profile.url %>
+</p>
+
+<p>
+  <b>Utc offset:</b>
+  <%= @profile.utc_offset %>
+</p>
+
+
+<%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= link_to 'Back', profiles_path %>

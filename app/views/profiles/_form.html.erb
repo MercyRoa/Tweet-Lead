@@ -1,0 +1,73 @@
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :screen_name %><br />
+    <%= f.text_field :screen_name %>
+  </div>
+  <div class="field">
+    <%= f.label :created_at %><br />
+    <%= f.datetime_select :created_at %>
+  </div>
+  <div class="field">
+    <%= f.label :followers_count %><br />
+    <%= f.number_field :followers_count %>
+  </div>
+  <div class="field">
+    <%= f.label :friends_count %><br />
+    <%= f.number_field :friends_count %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter_id %><br />
+    <%= f.number_field :twitter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lang %><br />
+    <%= f.text_field :lang %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :profile_image_url %><br />
+    <%= f.text_field :profile_image_url %>
+  </div>
+  <div class="field">
+    <%= f.label :protected %><br />
+    <%= f.check_box :protected %>
+  </div>
+  <div class="field">
+    <%= f.label :time_zone %><br />
+    <%= f.text_field :time_zone %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :utc_offset %><br />
+    <%= f.number_field :utc_offset %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
