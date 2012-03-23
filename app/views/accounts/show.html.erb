@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @account.username %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @account.password %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @account.description %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @account.group %>
+</p>
+
+<p>
+  <b>Token:</b>
+  <%= @account.token %>
+</p>
+
+<p>
+  <b>Token secret:</b>
+  <%= @account.token_secret %>
+</p>
+
+<p>
+  <b>Mentions count:</b>
+  <%= @account.mentions_count %>
+</p>
+
+<p>
+  <b>New mentions count:</b>
+  <%= @account.new_mentions_count %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

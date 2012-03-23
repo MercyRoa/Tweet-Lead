@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  username: MyString
+  password: MyString
+  description: MyString
+  group: MyString
+  token: MyString
+  token_secret: MyString
+  mentions_count: 1
+  new_mentions_count: 1
+
+two:
+  username: MyString
+  password: MyString
+  description: MyString
+  group: MyString
+  token: MyString
+  token_secret: MyString
+  mentions_count: 1
+  new_mentions_count: 1

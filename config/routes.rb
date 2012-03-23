@@ -1,4 +1,6 @@
 TweetLead::Application.routes.draw do
+  resources :accounts
+
   resources :tweets
 
   resources :profiles

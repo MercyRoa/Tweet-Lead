@@ -1,0 +1,49 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :group %><br />
+    <%= f.text_field :group %>
+  </div>
+  <div class="field">
+    <%= f.label :token %><br />
+    <%= f.text_field :token %>
+  </div>
+  <div class="field">
+    <%= f.label :token_secret %><br />
+    <%= f.text_field :token_secret %>
+  </div>
+  <div class="field">
+    <%= f.label :mentions_count %><br />
+    <%= f.number_field :mentions_count %>
+  </div>
+  <div class="field">
+    <%= f.label :new_mentions_count %><br />
+    <%= f.number_field :new_mentions_count %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
