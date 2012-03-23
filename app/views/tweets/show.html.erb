@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Profile:</b>
+  <%= @tweet.profile_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @tweet.status_id %>
+</p>
+
+<p>
+  <b>Status id str:</b>
+  <%= @tweet.status_id_str %>
+</p>
+
+<p>
+  <b>Coordinates:</b>
+  <%= @tweet.coordinates %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%= @tweet.created_at %>
+</p>
+
+<p>
+  <b>In reply to screen name:</b>
+  <%= @tweet.in_reply_to_screen_name %>
+</p>
+
+<p>
+  <b>In reply to status:</b>
+  <%= @tweet.in_reply_to_status_id %>
+</p>
+
+<p>
+  <b>In reply to status id str:</b>
+  <%= @tweet.in_reply_to_status_id_str %>
+</p>
+
+<p>
+  <b>In reply to user:</b>
+  <%= @tweet.in_reply_to_user_id %>
+</p>
+
+<p>
+  <b>In reply to user id str:</b>
+  <%= @tweet.in_reply_to_user_id_str %>
+</p>
+
+<p>
+  <b>Retweet count:</b>
+  <%= @tweet.retweet_count %>
+</p>
+
+<p>
+  <b>Retweeted:</b>
+  <%= @tweet.retweeted %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%= @tweet.source %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @tweet.text %>
+</p>
+
+
+<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+<%= link_to 'Back', tweets_path %>

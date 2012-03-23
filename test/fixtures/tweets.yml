@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  profile_id: 1
+  status_id: 1
+  status_id_str: MyString
+  coordinates: MyString
+  created_at: 2012-03-23 06:30:19
+  in_reply_to_screen_name: MyString
+  in_reply_to_status_id: 1
+  in_reply_to_status_id_str: MyString
+  in_reply_to_user_id: 1
+  in_reply_to_user_id_str: MyString
+  retweet_count: 1
+  retweeted: false
+  source: MyString
+  text: MyString
+
+two:
+  profile_id: 1
+  status_id: 1
+  status_id_str: MyString
+  coordinates: MyString
+  created_at: 2012-03-23 06:30:19
+  in_reply_to_screen_name: MyString
+  in_reply_to_status_id: 1
+  in_reply_to_status_id_str: MyString
+  in_reply_to_user_id: 1
+  in_reply_to_user_id_str: MyString
+  retweet_count: 1
+  retweeted: false
+  source: MyString
+  text: MyString

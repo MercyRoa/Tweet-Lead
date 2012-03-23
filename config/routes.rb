@@ -1,4 +1,6 @@
 TweetLead::Application.routes.draw do
+  resources :tweets
+
   resources :profiles
 
   # The priority is based upon order of creation:
