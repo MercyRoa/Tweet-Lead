@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Account:</b>
+  <%= @sheduled_message.account_id %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @sheduled_message.text %>
+</p>
+
+<p>
+  <b>Created:</b>
+  <%= @sheduled_message.created %>
+</p>
+
+<p>
+  <b>Sheduled:</b>
+  <%= @sheduled_message.sheduled %>
+</p>
+
+
+<%= link_to 'Edit', edit_sheduled_message_path(@sheduled_message) %> |
+<%= link_to 'Back', sheduled_messages_path %>

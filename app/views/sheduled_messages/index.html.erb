@@ -1,0 +1,29 @@
+<h1>Listing sheduled_messages</h1>
+
+<table>
+  <tr>
+    <th>Account</th>
+    <th>Text</th>
+    <th>Created</th>
+    <th>Sheduled</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sheduled_messages.each do |sheduled_message| %>
+  <tr>
+    <td><%= sheduled_message.account_id %></td>
+    <td><%= sheduled_message.text %></td>
+    <td><%= sheduled_message.created %></td>
+    <td><%= sheduled_message.sheduled %></td>
+    <td><%= link_to 'Show', sheduled_message %></td>
+    <td><%= link_to 'Edit', edit_sheduled_message_path(sheduled_message) %></td>
+    <td><%= link_to 'Destroy', sheduled_message, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sheduled message', new_sheduled_message_path %>

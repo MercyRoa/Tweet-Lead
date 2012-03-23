@@ -1,4 +1,6 @@
 TweetLead::Application.routes.draw do
+  resources :sheduled_messages
+
   resources :accounts
 
   resources :tweets

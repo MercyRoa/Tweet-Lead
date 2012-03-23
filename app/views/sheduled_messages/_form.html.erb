@@ -1,0 +1,33 @@
+<%= form_for(@sheduled_message) do |f| %>
+  <% if @sheduled_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sheduled_message.errors.count, "error") %> prohibited this sheduled_message from being saved:</h2>
+
+      <ul>
+      <% @sheduled_message.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :account_id %><br />
+    <%= f.number_field :account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :text %><br />
+    <%= f.text_field :text %>
+  </div>
+  <div class="field">
+    <%= f.label :created %><br />
+    <%= f.datetime_select :created %>
+  </div>
+  <div class="field">
+    <%= f.label :sheduled %><br />
+    <%= f.datetime_select :sheduled %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

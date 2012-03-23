@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  account_id: 1
+  text: MyString
+  created: 2012-03-23 07:22:21
+  sheduled: 2012-03-23 07:22:21
+
+two:
+  account_id: 1
+  text: MyString
+  created: 2012-03-23 07:22:21
+  sheduled: 2012-03-23 07:22:21
