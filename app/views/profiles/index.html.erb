@@ -10,7 +10,6 @@
     <th>Twitter</th>
     <th>Lang</th>
     <th>Location</th>
-    <th>Profile image url</th>
     <th>Protected</th>
     <th>Time zone</th>
     <th>Description</th>
@@ -23,7 +22,10 @@
 
 <% @profiles.each do |profile| %>
   <tr>
-    <td><%= profile.name %></td>
+    <td>
+      <%= image_tag profile.profile_image_url %>
+      <%= profile.name %>
+    </td>
     <td><%= profile.screen_name %></td>
     <td><%= profile.created_at %></td>
     <td><%= profile.followers_count %></td>
@@ -31,7 +33,6 @@
     <td><%= profile.twitter_id %></td>
     <td><%= profile.lang %></td>
     <td><%= profile.location %></td>
-    <td><%= profile.profile_image_url %></td>
     <td><%= profile.protected %></td>
     <td><%= profile.time_zone %></td>
     <td><%= profile.description %></td>

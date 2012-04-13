@@ -5,9 +5,8 @@
     <th>Username</th>
     <th>Password</th>
     <th>Description</th>
+    <th>Tokens</th>
     <th>Group</th>
-    <th>Token</th>
-    <th>Token secret</th>
     <th>Mentions count</th>
     <th>New mentions count</th>
     <th></th>
@@ -20,9 +19,8 @@
     <td><%= account.username %></td>
     <td><%= account.password %></td>
     <td><%= account.description %></td>
+    <td><%= account.tokens? %></td>
     <td><%= account.group %></td>
-    <td><%= account.token %></td>
-    <td><%= account.token_secret %></td>
     <td><%= account.mentions_count %></td>
     <td><%= account.new_mentions_count %></td>
     <td><%= link_to 'Show', account %></td>

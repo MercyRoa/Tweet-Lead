@@ -1,4 +1,11 @@
 class TweetsController < ApplicationController
+
+  def extract_mentions
+    Tweet.extract_mentions
+    raise "EXITO"
+    #Tweet.extract_mentions
+  end
+  
   # GET /tweets
   # GET /tweets.json
   def index

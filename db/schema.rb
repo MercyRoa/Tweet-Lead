@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326113311) do
+ActiveRecord::Schema.define(:version => 20120330133726) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -24,13 +24,11 @@ ActiveRecord::Schema.define(:version => 20120326113311) do
     t.integer  "new_mentions_count"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uid"
   end
 
-  create_table "keywords", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "keywords" because of following StandardError
+#   Unknown type 'bool' for column 'warning'
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -54,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120326113311) do
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alias"
   end
 
   create_table "sheduled_messages", :force => true do |t|
@@ -63,24 +62,10 @@ ActiveRecord::Schema.define(:version => 20120326113311) do
     t.datetime "sheduled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "profile_id"
   end
 
-  create_table "tweets", :force => true do |t|
-    t.integer  "profile_id"
-    t.integer  "status_id"
-    t.string   "status_id_str"
-    t.string   "coordinates"
-    t.datetime "created_at"
-    t.string   "in_reply_to_screen_name"
-    t.integer  "in_reply_to_status_id"
-    t.string   "in_reply_to_status_id_str"
-    t.integer  "in_reply_to_user_id"
-    t.string   "in_reply_to_user_id_str"
-    t.integer  "retweet_count"
-    t.boolean  "retweeted"
-    t.string   "source"
-    t.string   "text"
-    t.datetime "updated_at"
-  end
+# Could not dump table "tweets" because of following StandardError
+#   Unknown type 'bool' for column 'sent'
 
 end

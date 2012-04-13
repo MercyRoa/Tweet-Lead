@@ -8,7 +8,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.integer :friends_count
       t.integer :twitter_id
       t.string :lang
-      t.location :location
+      t.string :location
       t.string :profile_image_url
       t.boolean :protected
       t.string :time_zone

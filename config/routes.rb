@@ -11,6 +11,11 @@ TweetLead::Application.routes.draw do
 
   resources :profiles
 
+  match "/auth/twitter/callback" => "accounts#save_tokens"
+  
+  match '/extract_mentions' => 'tweets#extract_mentions'
+  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
