@@ -8,10 +8,16 @@ class Tweet < ActiveRecord::Base
     accounts.each do |a|
       # Buscamos todas las menciones
       puts "---> Extrayendo menciones..."
-      tws = a.tc.mentions({:count => 200}) # use :since_id instead
+
+      config = {:count => 200}
+      config[:since_id] = a.last_tweet_id unless a.last_tweet_id.nil?
+      
+      tws = a.tc.mentions(config) # use :since_id instead
 
       # Por cada mencion
       tws.each do |t|
+        next if Tweet.exists?({:status_id => t.id})
+        
         logger.info " ---> Procesando mencion"
         # Verificamos si ya existe el profile
         p = Profile.find_by_twitter_id t.user.id
@@ -40,15 +46,16 @@ class Tweet < ActiveRecord::Base
         data['profile_id'] = p.id
         data['status_id'] = t.id
         data['status_id_str'] = t.id
+        a.last_tweet_id = t.id
         
         # guardamos el tweet
         t = Tweet.new(data)
         t.save
-        
       end
-
-      logger.info "mission cumplida"
+      a.save
+      
     end
+    logger.info "mission cumplida"
   end
 
   def extract_dm
