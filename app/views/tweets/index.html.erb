@@ -2,20 +2,11 @@
 
 <table>
   <tr>
+    <th>Account</th>
     <th>Profile</th>
-    <th>Status</th>
-    <th>Status id str</th>
-    <th>Coordinates</th>
-    <th>Created at</th>
-    <th>In reply to screen name</th>
-    <th>In reply to status</th>
-    <th>In reply to status id str</th>
-    <th>In reply to user</th>
-    <th>In reply to user id str</th>
-    <th>Retweet count</th>
-    <th>Retweeted</th>
-    <th>Source</th>
     <th>Text</th>
+    <th>Created at</th>
+    <th>Source</th>
     <th></th>
     <th></th>
     <th></th>
@@ -23,20 +14,12 @@
 
 <% @tweets.each do |tweet| %>
   <tr>
-    <td><%= tweet.profile_id %></td>
-    <td><%= tweet.status_id %></td>
-    <td><%= tweet.status_id_str %></td>
-    <td><%= tweet.coordinates %></td>
-    <td><%= tweet.created_at %></td>
-    <td><%= tweet.in_reply_to_screen_name %></td>
-    <td><%= tweet.in_reply_to_status_id %></td>
-    <td><%= tweet.in_reply_to_status_id_str %></td>
-    <td><%= tweet.in_reply_to_user_id %></td>
-    <td><%= tweet.in_reply_to_user_id_str %></td>
-    <td><%= tweet.retweet_count %></td>
-    <td><%= tweet.retweeted %></td>
-    <td><%= tweet.source %></td>
+    <td><%= tweet.account.username %></td>
+    <td><%= image_tag tweet.profile.profile_image_url %>
+        <%= tweet.profile.screen_name %></td>
     <td><%= tweet.text %></td>
+    <td><%= tweet.created_at %></td>
+    <td><%= raw tweet.source %></td>
     <td><%= link_to 'Show', tweet %></td>
     <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
     <td><%= link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete %></td>
