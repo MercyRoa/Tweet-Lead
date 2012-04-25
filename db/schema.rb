@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120417113358) do
+ActiveRecord::Schema.define(:version => 20120425115002) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120417113358) do
     t.datetime "updated_at"
     t.string   "uid"
     t.integer  "last_tweet_id"
+    t.integer  "last_own_tweet_id"
   end
 
 # Could not dump table "keywords" because of following StandardError

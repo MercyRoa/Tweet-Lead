@@ -1,8 +1,10 @@
 == Welcome to TweetLead on Rails
 
 Current status of work
-  * Using OmniAuth you have to go to /auth/twitter, it redirects to /atuh/twitter/callback
+ * Last day we made more modular the mention extractor moving some code to Profile
+ *
 
 Next work flow:
- * get the values from callbacks and store in account
- * check if accoutn have valid tokens
+ * Move the data structuration to a independent function at it will be used in get_timeline and get_mentions
+ * Make work the Account::get_timeline
+ * Make a Account's method named get_mentions and do the foreach inside the Tweets Controller, get_mentions shouldnt be a Tweets method

@@ -16,25 +16,15 @@ class Tweet < ActiveRecord::Base
 
       # Por cada mencion
       tws.each do |t|
+        logger.info " * tweet: " + t.text
         next if Tweet.exists?({:status_id => t.id})
         
         logger.info " ---> Procesando mencion"
-        # Verificamos si ya existe el profile
-        p = Profile.find_by_twitter_id t.user.id
-        # si no existe lo guardamos
-        if p.nil?
-          logger.info "  --> !No existe: "+t.user.screen_name
-          data = t.user.to_hash.select{ |k,v| [
-              'description', 'followers_count', 'friends_count',
-              'lang', 'location', 'name', 'profile_image_url',
-              'screen_name', 'protected', 'time_zone', 'url', 'utc_offset'].include?(k) }
-          
-          data['twitter_id'] = t.user.id
-          p = Profile.new(data)
-          # p.twitter_id = t.user.id
-          p.save
-        end
-
+        
+        # Verificamos si ya existe el profile, sino existe este metodo lo salva
+        p = Profile.get t.user.id, a
+        
+        #prepare date for save into tweets table
         data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
             'in_reply_to_screen_name', 'in_reply_to_status_id', 
             'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
