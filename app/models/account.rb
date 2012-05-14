@@ -19,7 +19,15 @@ class Account < ActiveRecord::Base
       next if Tweet.exists?({:status_id => t.id})
      
       # Verificamos si ya existe el profile
-      p = Profile.get t.in_reply_to_screen_name, self
+      # el primer if se puedeb orrar porque la regex obtiene siempre el username
+      if t.in_reply_to_screen_name.nil? 
+        screen_name = t.text.scan(/@(\w+)/i).flatten.first
+        next if screen_name.nil?
+      else
+        screen_name = t.in_reply_to_screen_name
+      end
+
+      p = Profile.get(screen_name, self)
       
       data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
           'in_reply_to_screen_name', 'in_reply_to_status_id', 
@@ -28,17 +36,18 @@ class Account < ActiveRecord::Base
         ].include?(k)
       }
       # seteamos datos extras
-      data['account_id'] = a.id
+      data['account_id'] = self.id
       data['profile_id'] = p.id
       data['status_id'] = t.id
       data['status_id_str'] = t.id
-      a.last_tweet_id = t.id
+      data['from_account'] = true
+      self.last_own_tweet_id = t.id
       
       # guardamos el tweet
       t = Tweet.new(data)
       t.save
     end
-    a.save
+    self.save
   end
 
   

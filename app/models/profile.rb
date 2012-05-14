@@ -20,14 +20,15 @@ class Profile < ActiveRecord::Base
     
     data['twitter_id'] = user.id
     
-    p = self.new(data)
+    p = self.new data
     p.save
     p #p.save returs true, so we have to return full profile object
   end
   
-  # Check and create 
+  # Check if profile exist, and return it or create 
+  # user:string
   def self.get(user, account = nil)
-    logger.info " Buscando Usuario: "+user
+    logger.info " Buscando Usuario: "+user.to_s
     if user.is_a? String
       p = self.find_by_screen_name user
     elsif user.is_a? Integer

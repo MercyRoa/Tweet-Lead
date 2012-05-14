@@ -15,7 +15,8 @@ TweetLead::Application.routes.draw do
   
   match '/extract_mentions' => 'tweets#extract_mentions'
   
-
+  match '/get_all_timeline' => 'accounts#get_all_timeline'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

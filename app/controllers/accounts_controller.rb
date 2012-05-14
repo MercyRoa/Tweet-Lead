@@ -9,7 +9,13 @@ class AccountsController < ApplicationController
 			format.json { render json: @accounts }
 		end
 	end
-
+  
+  def get_all_timeline
+    Account.all.each do |a| 
+      a.get_timeline
+    end
+  end
+  
 	# METODO CALLBACK
 	def save_tokens
 		@account = Account.find_by_username request.env['omniauth.auth']['info']['nickname']
