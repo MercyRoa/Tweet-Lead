@@ -14,6 +14,8 @@ class AccountsController < ApplicationController
     Account.all.each do |a| 
       a.get_timeline
     end
+    raise "finalizado"
+    
   end
   
 	# METODO CALLBACK

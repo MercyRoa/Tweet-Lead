@@ -1,3 +1,11 @@
+<style>
+  .from_account{
+    text-align: right;
+    color: blue;
+  } 
+ </style>
+ 
+
 <p id="notice"><%= notice %></p>
 
 <div>
@@ -9,7 +17,7 @@
 </div>
 <hr>
 <% @profile.tweets.each do |t| %>
-<div>
+  <div class="<%= "from_account" if t.from_account %>">
     <%= t.text %>
 </div>
 <% end %>

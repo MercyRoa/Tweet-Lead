@@ -1,5 +1,5 @@
 class Profile < ActiveRecord::Base
-  has_many :tweets
+  has_many :tweets, :order => "created_at"
   belongs_to :account
   
   # User can be String, Integer or Twitter::User
@@ -8,7 +8,13 @@ class Profile < ActiveRecord::Base
     
     if !user.respond_to? "to_hash"
       account = Account.first if account.nil?
-      user = account.tc.user user
+      
+      begin
+        user = account.tc.user user
+      rescue
+        user = nil
+      end
+      
     end
     
     return false if user.nil? 

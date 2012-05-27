@@ -1,7 +1,7 @@
 class Tweet < ActiveRecord::Base
   belongs_to  :profile
   belongs_to  :account
-
+  
   def self.extract_mentions
     # Por cada cuenta
     accounts = Account.all

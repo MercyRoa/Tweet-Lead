@@ -29,6 +29,8 @@ class Account < ActiveRecord::Base
 
       p = Profile.get(screen_name, self)
       
+      next if p == false;
+      
       data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
           'in_reply_to_screen_name', 'in_reply_to_status_id', 
           'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
