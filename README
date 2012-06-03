@@ -7,6 +7,9 @@ Current status of work
 Next work flow:
  * Move the data structuration to a independent function at it will be used in get_timeline and get_mentions
  * Make a Account's method named get_mentions and do the foreach inside the Tweets Controller, get_mentions shouldnt be a Tweets method
+_____
  * Make the reply form and make it works
  * create a latest replies message
  * Profiles Index should show only the profiles that replied us.
+ * Clean profiles with replied = 0 more than 5 days old
+ * Remove #FF tweets

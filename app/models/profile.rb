@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
   has_many :tweets, :order => "created_at"
+  has_many :sheduled_messages
   belongs_to :account
   
   # User can be String, Integer or Twitter::User
@@ -24,6 +25,7 @@ class Profile < ActiveRecord::Base
         'lang', 'location', 'name', 'profile_image_url',
         'screen_name', 'protected', 'time_zone', 'url', 'utc_offset'].include?(k) }
     
+    data['account_id'] = account.id
     data['twitter_id'] = user.id
     
     p = self.new data

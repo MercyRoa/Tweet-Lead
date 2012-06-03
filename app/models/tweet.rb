@@ -13,7 +13,8 @@ class Tweet < ActiveRecord::Base
       config[:since_id] = a.last_tweet_id unless a.last_tweet_id.nil?
       
       tws = a.tc.mentions(config) # use :since_id instead
-
+      puts "..OK Menciones extraidas capitan!"
+      
       # Por cada mencion
       tws.each do |t|
         logger.info " * tweet: " + t.text
@@ -25,27 +26,38 @@ class Tweet < ActiveRecord::Base
         p = Profile.get t.user.id, a
         
         #prepare date for save into tweets table
-        data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
-            'in_reply_to_screen_name', 'in_reply_to_status_id', 
-            'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
-            'retweet_count', 'retweeted', 'source', 'text'
-          ].include?(k)
-        }
+        data = self.convert_from_status t
+        
         # seteamos datos extras
         data['account_id'] = a.id
         data['profile_id'] = p.id
-        data['status_id'] = t.id
-        data['status_id_str'] = t.id
+        
         a.last_tweet_id = t.id
         
         # guardamos el tweet
         t = Tweet.new(data)
         t.save
+        
+        #actualizamos replied en profile
+        p.update_attribute(:replied, true) unless p.replied == true
       end
       a.save
       
     end
     logger.info "mission cumplida"
+  end
+  
+  def self.convert_from_status t
+    data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
+        'in_reply_to_screen_name', 'in_reply_to_status_id', 
+        'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
+        'retweet_count', 'retweeted', 'source', 'text'
+      ].include?(k)
+    }
+    data['status_id'] = t.id
+    data['status_id_str'] = t.id
+    
+    data
   end
 
   def extract_dm

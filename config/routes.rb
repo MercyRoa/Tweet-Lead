@@ -17,6 +17,8 @@ TweetLead::Application.routes.draw do
   
   match '/get_all_timeline' => 'accounts#get_all_timeline'
   
+  match '/send' => 'sheduled_messages#send_messages'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,4 +1,11 @@
 class SheduledMessagesController < ApplicationController
+  
+  def send_messages
+    SheduledMessage.send_all
+    raise "Terminado"
+  end
+  
+  
   # GET /sheduled_messages
   # GET /sheduled_messages.json
   def index

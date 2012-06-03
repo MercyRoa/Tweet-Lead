@@ -7,7 +7,7 @@ class Account < ActiveRecord::Base
   
   has_many :tweets
   
-  # Obtain our tweets
+  # Obtain our own tweets
   def get_timeline
     config = {:count => 200}
     config[:since_id] = self.last_own_tweet_id unless self.last_own_tweet_id.nil?
@@ -19,7 +19,7 @@ class Account < ActiveRecord::Base
       next if Tweet.exists?({:status_id => t.id})
      
       # Verificamos si ya existe el profile
-      # el primer if se puedeb orrar porque la regex obtiene siempre el username
+      # el primer if se puede borrar porque la regex obtiene siempre el username
       if t.in_reply_to_screen_name.nil? 
         screen_name = t.text.scan(/@(\w+)/i).flatten.first
         next if screen_name.nil?

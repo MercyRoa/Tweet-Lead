@@ -19,8 +19,25 @@
 <% @profile.tweets.each do |t| %>
   <div class="<%= "from_account" if t.from_account %>">
     <%= t.text %>
-</div>
+  </div>
 <% end %>
+
+<% @profile.sheduled_messages.each do |sm| %>
+  <div style="color: red"><%= sm.text %></div>
+<% end %>
+
+<%= form_for(@sheduled_messages) do |f| %>
+<%= f.hidden_field(:account_id, {:value => @profile.account_id}) %>
+<%= f.hidden_field(:profile_id, {:value => @profile.id}) %>
+  <div class="field">
+    <%= f.label :text %><br />
+    <%= f.text_area :text, :value => '@'+@profile.screen_name+' ',:rows => 3 %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Reply' %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

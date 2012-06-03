@@ -2,7 +2,8 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    #@profiles = Profile.all
+    @profiles = Profile.where(:replied => true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @profile = Profile.find(params[:id])
+    @sheduled_messages = SheduledMessage.new
 
     respond_to do |format|
       format.html # show.html.erb
