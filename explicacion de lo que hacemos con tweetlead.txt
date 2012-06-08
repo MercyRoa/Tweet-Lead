@@ -1,0 +1,5 @@
+1. miramos todos los twets que hemos mandado
+2. vemos a quienes se los hemos mandado
+3.
+	a. Si ya se lo hemos mandado lo gaurdamos con ese id de profile
+	b. Si no se lo hemos mandado creamos un registro profile

@@ -1,4 +1,6 @@
 TweetLead::Application.routes.draw do
+  resources :searches
+
   resources :keywords
 
   resources :responses
