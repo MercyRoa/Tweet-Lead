@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120603171517) do
+ActiveRecord::Schema.define(:version => 20120608033926) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120603171517) do
     t.string   "uid"
     t.integer  "last_tweet_id"
     t.integer  "last_own_tweet_id"
+    t.text     "normal_tweets"
   end
 
 # Could not dump table "keywords" because of following StandardError
@@ -57,6 +58,13 @@ ActiveRecord::Schema.define(:version => 20120603171517) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "alias"
+  end
+
+  create_table "searches", :force => true do |t|
+    t.string   "search"
+    t.string   "responses"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sheduled_messages", :force => true do |t|
