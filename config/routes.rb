@@ -21,6 +21,8 @@ TweetLead::Application.routes.draw do
   
   match '/send' => 'sheduled_messages#send_messages'
   
+  match '/process_searches' => 'searches#process_all'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

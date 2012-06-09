@@ -79,5 +79,12 @@ class Account < ActiveRecord::Base
       
     self.twitter_client
   end
+ 
+  # Get the oldest used account 
+  def self.oldest_used
+    Account.order("updated_at").first
+  end
+  
+  
   
 end

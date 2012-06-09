@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'twitter'
 gem 'oauth'
 
+
 gem 'omniauth-twitter'
 
 # Gems used only for assets and not required

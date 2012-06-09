@@ -47,6 +47,12 @@ class Profile < ActiveRecord::Base
     return p unless p.nil?
     
     # si no existe lo intentamos guardar
-    self.make_from user, account
+    p = self.make_from user, account
+    
+        #
+        # @ToDo: Si es nuevo profile debe buscar los tweets de origen y guardarlo
+        #
+        
+    p
   end
 end

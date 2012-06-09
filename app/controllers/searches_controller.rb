@@ -80,4 +80,13 @@ class SearchesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def process_all
+    
+    #carga todas las busquedas
+    
+    Search.all.each do |s|
+      s.process 
+    end
+  end
 end

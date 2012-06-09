@@ -25,6 +25,7 @@ class Tweet < ActiveRecord::Base
         # Verificamos si ya existe el profile, sino existe este metodo lo salva
         p = Profile.get t.user.id, a
         
+
         #prepare date for save into tweets table
         data = self.convert_from_status t
         

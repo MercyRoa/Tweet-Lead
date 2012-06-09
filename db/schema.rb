@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608033926) do
+ActiveRecord::Schema.define(:version => 20120609033702) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(:version => 20120608033926) do
   create_table "searches", :force => true do |t|
     t.string   "search"
     t.string   "responses"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "last_tweet_id"
+  end
+
+  create_table "searches_results", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "username"
+    t.string   "tweet"
+    t.string   "reply"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
