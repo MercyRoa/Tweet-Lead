@@ -1,0 +1,16 @@
+## YAML Template.
+---
+config: 
+  replies-min: 2
+  replies-max: 4
+  
+  normal-min: 2
+  normal-max: 4
+  
+  interval: 60
+  
+filter:
+  url: "http://"
+  rt: "$RT"
+  ff: "#FF"
+  
