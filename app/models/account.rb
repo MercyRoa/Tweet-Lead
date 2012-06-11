@@ -82,7 +82,7 @@ class Account < ActiveRecord::Base
  
   # Get the oldest used account 
   def self.oldest_used
-    Account.order("updated_at").first
+    self.order("updated_at").first
   end
   
   
