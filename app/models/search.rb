@@ -34,7 +34,7 @@ class Search < ActiveRecord::Base
       #aply filters
 
       data << SearchesResult.new({
-          :account_id => accounts[rand(accounts.count)], 
+          :account_id => accounts.sample.id, 
           :username => t.from_user, 
           :tweet => t.text, 
           :reply => reply 
@@ -45,10 +45,10 @@ class Search < ActiveRecord::Base
     
     return "No tweets to insert" if data.empty?
     
-    SearchResult.import data
+    SearchesResult.import data
     self.save
     
-    data.map{|t| "@" + t.username + ": " + t.tweet}
+    raise data.map{|t| "@" + t.username + ": " + t.tweet}.to_yaml
   end
   
   #Ckeck that is not a repetead user, should be called with reject
