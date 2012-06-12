@@ -10,17 +10,18 @@ class Search < ActiveRecord::Base
     tweets, data, self.temp_usernames = [],[],[]
     
     config = {:rpp => 100, :page => 1, :result_type => "recent" }
-    config[:since_id] = self.last_tweet_id unless self.last_tweet_id.nil?  
+    config[:since_id] = self.last_tweet_id.to_i unless self.last_tweet_id.nil?  
     
     while true
       puts "pagina " + config[:page].to_s
         
       r = a.tc.search(self.search + " -rt -http -#ff", config)
       tweets += r 
-      break if r.empty? || config[:page] == 15
+      break if r.empty? || config[:page] == 3
       config[:page] += 1 
     end
-    #raise tweets.map{|t| "@" + t.from_user + ": " + t.text}.to_yaml 
+    
+    raise tweets.map{|t| "@" + t.from_user + ": " + t.text }.to_yaml 
     return "No tweets founds" if tweets.empty?
     
     replies = File.readlines "vendor/replies/replies.txt" 
@@ -39,14 +40,14 @@ class Search < ActiveRecord::Base
           :tweet => t.text, 
           :reply => reply 
       })
-    
-      self.last_tweet_id = t.id
     end
+
+    self.last_tweet_id = tweets.first.id
+    self.save
     
     return "No tweets to insert" if data.empty?
     
     SearchesResult.import data
-    self.save
     
     raise data.map{|t| "@" + t.username + ": " + t.tweet}.to_yaml
   end
