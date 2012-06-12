@@ -2,10 +2,13 @@ class Search < ActiveRecord::Base
   #que haga las busqueda
   
   def process 
-        
-    a = Account.oldest_used
+     
+    #a = Account.oldest_used
+    accounts = Account.all.order(:updated_at)
+    a = accounts.first
 
-    tweets = Array.new
+    tweets = data = usernames = []
+    
     config = {:rpp => 100, :page => 1, :result_type => "recent" }
     config[:since_id] = self.last_tweet_id unless self.last_tweet_id.nil?  
 
@@ -25,15 +28,25 @@ class Search < ActiveRecord::Base
     
     replies = File.readlines "vendor/replies/replies.txt" 
     
-    data = []
-    # Por cada tweet
     tweets.each_with_index do |t,i|
       puts "#{i}. Tweet de @" + t.from_user
       reply = "@#{t.from_user} " +  replies[rand(replies.count)]
-      #VErificar codificacion , rn al final y longitud <140 
-      data << SearchesResult.new({:account_id => a.id, :username => t.from_user, :tweet => t.text, :reply => reply })
-      #Opps!! Nos falta ponerle reply...!!  
       
+      #check encoding and length
+      
+      #Ckeck that is not a repetead user
+      next if Profile.exists?(:screen_name => t.from_user) 
+      next if SearchResults.exists?(:username => t.from_user)
+      next if usernames.include? t.from_user
+      
+      usernames << t.from_user
+      data << SearchesResult.new({
+          :account_id => accounts[rand(accounts.count)], 
+          :username => t.from_user, 
+          :tweet => t.text, 
+          :reply => reply 
+      })
+    
       self.last_tweet_id = t.id
     end
     SearchesResult.import data

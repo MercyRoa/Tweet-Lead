@@ -6,6 +6,6 @@ class ChangeLastTweetIdToString < ActiveRecord::Migration
 
   def down
     change_column :searches, :last_tweet_id, :integer
-    change_column :accounts, :last_tweet_id, :string
+    change_column :accounts, :last_tweet_id, :integer
   end
 end

@@ -13,6 +13,52 @@
 
 ActiveRecord::Schema.define(:version => 20120612022006) do
 
+  create_table "_alter1_tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
+    t.integer  "profile_id"
+    t.integer  "status_id"
+    t.string   "status_id_str"
+    t.string   "coordinates"
+    t.datetime "created_at"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "in_reply_to_status_id"
+    t.string   "in_reply_to_status_id_str"
+    t.integer  "in_reply_to_user_id"
+    t.string   "in_reply_to_user_id_str"
+    t.integer  "retweet_count"
+    t.boolean  "retweeted"
+    t.string   "source"
+    t.string   "text"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+    t.datetime "sheduled"
+    t.boolean  "sent"
+    t.boolean  "from_account"
+  end
+
+  create_table "_alter2_tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
+    t.integer  "profile_id"
+    t.integer  "status_id"
+    t.string   "status_id_str"
+    t.string   "coordinates"
+    t.datetime "created_at"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "in_reply_to_status_id"
+    t.string   "in_reply_to_status_id_str"
+    t.integer  "in_reply_to_user_id"
+    t.string   "in_reply_to_user_id_str"
+    t.integer  "retweet_count"
+    t.boolean  "retweeted"
+    t.string   "source"
+    t.string   "text"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+    t.datetime "sheduled"
+    t.boolean  "sent"
+    t.boolean  "from_account"
+  end
+
   create_table "accounts", :force => true do |t|
     t.string   "username"
     t.string   "password"
@@ -82,6 +128,29 @@ ActiveRecord::Schema.define(:version => 20120612022006) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "profile_id"
+  end
+
+  create_table "tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
+    t.integer  "profile_id"
+    t.integer  "status_id"
+    t.string   "status_id_str"
+    t.string   "coordinates"
+    t.datetime "created_at"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "in_reply_to_status_id"
+    t.string   "in_reply_to_status_id_str"
+    t.integer  "in_reply_to_user_id"
+    t.string   "in_reply_to_user_id_str"
+    t.integer  "retweet_count"
+    t.boolean  "retweeted"
+    t.string   "source"
+    t.string   "text"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+    t.datetime "sheduled"
+    t.boolean  "sent"
+    t.boolean  "from_account"
   end
 
 end
