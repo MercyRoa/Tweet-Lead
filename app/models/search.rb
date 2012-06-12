@@ -4,10 +4,10 @@ class Search < ActiveRecord::Base
   def process 
      
     #a = Account.oldest_used
-    accounts = Account.all.order(:updated_at)
+    accounts = Account.order(:updated_at).all
     a = accounts.first
 
-    tweets = data = usernames = []
+    tweets, data, usernames = [],[],[]
     
     config = {:rpp => 100, :page => 1, :result_type => "recent" }
     config[:since_id] = self.last_tweet_id unless self.last_tweet_id.nil?  
@@ -34,9 +34,12 @@ class Search < ActiveRecord::Base
       
       #check encoding and length
       
+      #aply filters
+      
       #Ckeck that is not a repetead user
+      #@todo Create index
       next if Profile.exists?(:screen_name => t.from_user) 
-      next if SearchResults.exists?(:username => t.from_user)
+      next if SearchesResult.exists?(:username => t.from_user)
       next if usernames.include? t.from_user
       
       usernames << t.from_user
@@ -49,10 +52,20 @@ class Search < ActiveRecord::Base
     
       self.last_tweet_id = t.id
     end
+
     SearchesResult.import data
       
     self.save
     raise tweets.map{|t| "@" + t.from_user + ": " + t.text}.to_yaml 
   end
+  
+  # user is string
+  # usernames is array
+  def repeat_user(user, usernames)
+    Profile.exists?(:screen_name => user)    ||
+    SearchResults.exists?(:username => user) ||
+    usernames.include?(user)
+  end
+
   
 end
