@@ -6,10 +6,12 @@ gem 'rails', '3.1.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'mysql'
+gem 'activerecord-import', '>= 0.2.0'
 
 gem 'twitter'
 gem 'oauth'
-
+gem 'yaml_db'
 
 gem 'omniauth-twitter'
 

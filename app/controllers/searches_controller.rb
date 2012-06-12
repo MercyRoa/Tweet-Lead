@@ -84,7 +84,7 @@ class SearchesController < ApplicationController
   def process_all
     
     #carga todas las busquedas
-    
+
     Search.all.each do |s|
       s.process 
     end

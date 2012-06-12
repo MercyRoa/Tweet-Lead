@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120609033702) do
+ActiveRecord::Schema.define(:version => 20120612022006) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -25,13 +25,10 @@ ActiveRecord::Schema.define(:version => 20120609033702) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uid"
-    t.integer  "last_tweet_id"
+    t.string   "last_tweet_id"
     t.integer  "last_own_tweet_id"
     t.text     "normal_tweets"
   end
-
-# Could not dump table "keywords" because of following StandardError
-#   Unknown type 'bool' for column 'warning'
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -65,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20120609033702) do
     t.string   "responses"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "last_tweet_id"
+    t.string   "last_tweet_id"
   end
 
   create_table "searches_results", :force => true do |t|
@@ -86,8 +83,5 @@ ActiveRecord::Schema.define(:version => 20120609033702) do
     t.datetime "updated_at"
     t.integer  "profile_id"
   end
-
-# Could not dump table "tweets" because of following StandardError
-#   Unknown type 'bool' for column 'sent'
 
 end
