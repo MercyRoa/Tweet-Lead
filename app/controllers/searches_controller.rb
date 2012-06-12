@@ -86,7 +86,8 @@ class SearchesController < ApplicationController
     #carga todas las busquedas
 
     Search.all.each do |s|
-      s.process 
+      logger.info s.process 
     end
+    raise "finish"
   end
 end
