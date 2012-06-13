@@ -11,7 +11,53 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612022006) do
+ActiveRecord::Schema.define(:version => 20120613225924) do
+
+  create_table "_alter1_tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
+    t.integer  "profile_id"
+    t.integer  "status_id"
+    t.string   "status_id_str"
+    t.string   "coordinates"
+    t.datetime "created_at"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "in_reply_to_status_id"
+    t.string   "in_reply_to_status_id_str"
+    t.integer  "in_reply_to_user_id"
+    t.string   "in_reply_to_user_id_str"
+    t.integer  "retweet_count"
+    t.boolean  "retweeted"
+    t.string   "source"
+    t.string   "text"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+    t.datetime "sheduled"
+    t.boolean  "sent"
+    t.boolean  "from_account"
+  end
+
+  create_table "_alter2_tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
+    t.integer  "profile_id"
+    t.integer  "status_id"
+    t.string   "status_id_str"
+    t.string   "coordinates"
+    t.datetime "created_at"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "in_reply_to_status_id"
+    t.string   "in_reply_to_status_id_str"
+    t.integer  "in_reply_to_user_id"
+    t.string   "in_reply_to_user_id_str"
+    t.integer  "retweet_count"
+    t.boolean  "retweeted"
+    t.string   "source"
+    t.string   "text"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+    t.datetime "sheduled"
+    t.boolean  "sent"
+    t.boolean  "from_account"
+  end
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -28,13 +74,6 @@ ActiveRecord::Schema.define(:version => 20120612022006) do
     t.string   "last_tweet_id"
     t.integer  "last_own_tweet_id"
     t.text     "normal_tweets"
-  end
-
-  create_table "keywords", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "warning"
   end
 
   create_table "profiles", :force => true do |t|
@@ -72,6 +111,15 @@ ActiveRecord::Schema.define(:version => 20120612022006) do
     t.string   "last_tweet_id"
   end
 
+  create_table "searches_logs", :force => true do |t|
+    t.integer  "search_id"
+    t.integer  "results"
+    t.integer  "saved"
+    t.integer  "page"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "searches_results", :force => true do |t|
     t.integer  "account_id"
     t.string   "username"
@@ -91,7 +139,8 @@ ActiveRecord::Schema.define(:version => 20120612022006) do
     t.integer  "profile_id"
   end
 
-  create_table "tweets", :force => true do |t|
+  create_table "tweets", :id => false, :force => true do |t|
+    t.integer  "id",                        :null => false
     t.integer  "profile_id"
     t.integer  "status_id"
     t.string   "status_id_str"
