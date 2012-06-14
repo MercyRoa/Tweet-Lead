@@ -38,7 +38,8 @@ class Search < ActiveRecord::Base
             :account_id => accounts.sample.id, 
             :username => t.from_user, 
             :tweet => t.text, 
-            :reply => reply 
+            :reply => reply,
+            :tweeted_at => t.created_at
         })
       end
 
@@ -46,7 +47,7 @@ class Search < ActiveRecord::Base
       self.save
 
       if !data.empty?
-        SearchesResult.import data
+        SearchesResult.import data.reverse
       end
     end
     
@@ -69,7 +70,8 @@ class Search < ActiveRecord::Base
     self.temp_usernames << user
     to_return
   end
-
+  
+  
   def save_log results, saved, page
     SearchesLog.create({
         :search_id => self.id, 
@@ -78,4 +80,5 @@ class Search < ActiveRecord::Base
         :page => page
       })
   end
+  
 end

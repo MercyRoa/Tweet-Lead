@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120613225924) do
+ActiveRecord::Schema.define(:version => 20120614001634) do
 
   create_table "_alter1_tweets", :id => false, :force => true do |t|
     t.integer  "id",                        :null => false
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20120613225924) do
     t.string   "reply"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "tweeted_at"
+    t.boolean  "sent"
   end
 
   create_table "sheduled_messages", :force => true do |t|

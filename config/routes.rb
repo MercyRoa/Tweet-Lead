@@ -23,6 +23,8 @@ TweetLead::Application.routes.draw do
   
   match '/process_searches' => 'searches#process_all'
   
+ match '/launch_senders' => 'searches#launch_senders'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

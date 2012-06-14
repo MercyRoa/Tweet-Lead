@@ -13,19 +13,18 @@ class Tweet < ActiveRecord::Base
       config[:since_id] = a.last_tweet_id unless a.last_tweet_id.nil?
       
       tws = a.tc.mentions(config) # use :since_id instead
-      puts "..OK Menciones extraidas capitan!"
+      puts "..OK Menciones extraidas capitan! #{tws.count}"
       
       # Por cada mencion
       tws.each do |t|
-        logger.info " * tweet: " + t.text
+        puts " * tweet: " + t.text
         next if Tweet.exists?({:status_id => t.id})
         
-        logger.info " ---> Procesando mencion"
+        puts " ---> Procesando mencion"
         
         # Verificamos si ya existe el profile, sino existe este metodo lo salva
         p = Profile.get t.user.id, a
         
-
         #prepare date for save into tweets table
         data = self.convert_from_status t
         
