@@ -1,50 +1,43 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = @account.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Username:</b>
-  <%= @account.username %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong></dt>
+  <dd><%= @account.username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
+  <dd><%= @account.password %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @account.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:group) %>:</strong></dt>
+  <dd><%= @account.group %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:token) %>:</strong></dt>
+  <dd><%= @account.token %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:token_secret) %>:</strong></dt>
+  <dd><%= @account.token_secret %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:mentions_count) %>:</strong></dt>
+  <dd><%= @account.mentions_count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:new_mentions_count) %>:</strong></dt>
+  <dd><%= @account.new_mentions_count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:uid) %>:</strong></dt>
+  <dd><%= @account.uid %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_tweet_id) %>:</strong></dt>
+  <dd><%= @account.last_tweet_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_own_tweet_id) %>:</strong></dt>
+  <dd><%= @account.last_own_tweet_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:normal_tweets) %>:</strong></dt>
+  <dd><%= @account.normal_tweets %></dd>
+</dl>
 
-<p>
-  <b>Password:</b>
-  <%= @account.password %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @account.description %>
-</p>
-
-<p>
-  <b>Group:</b>
-  <%= @account.group %>
-</p>
-
-<p>
-  <b>Uid:</b>
-  <%= @account.uid %>
-</p>
-
-<p>
-  <b>Token:</b>
-  <%= @account.token %>
-</p>
-
-<p>
-  <b>Token secret:</b>
-  <%= @account.token_secret %>
-</p>
-
-<p>
-  <b>Mentions count:</b>
-  <%= @account.mentions_count %>
-</p>
-
-<p>
-  <b>New mentions count:</b>
-  <%= @account.new_mentions_count %>
-</p>
-
-
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              accounts_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_account_path(@account), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              account_path(@account),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>
