@@ -1,4 +1,4 @@
-<% @profiles.each do |p| %>
+<% @profiles.each_with_index do |p,i| %>
 
 <!-- START: tweetBox -->
 <div class="row tweetBox">
@@ -34,7 +34,7 @@
 		
 	</div>
 	<div class="span5">
-		<textarea name="" id="" cols="65" rows="2" class="replyBox">@<%= p.screen_name %></textarea>
+		<textarea name="" id="" cols="65" rows="2" class="replyBox" tabindex="<%= i+1 %>">@<%= p.screen_name %> </textarea>
 		<p>
 			<button class="btn btn-mini btn-info">desayuno</button>
 			<button class="btn btn-mini btn-info">en peso?</button>
