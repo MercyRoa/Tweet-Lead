@@ -22,6 +22,8 @@ class SheduledMessage < ActiveRecord::Base
   
   def send_msg
       puts " * Enviando: "+self.text
+
+      self.text = "@#{self.profile.screen_name} #{self.text}" unless self.text =~ /@#{self.profile.screen_name}/
       
       data = Tweet.convert_from_status(self.account.tc.update self.text)
       data['account_id'] = self.account_id
