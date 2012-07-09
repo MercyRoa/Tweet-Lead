@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709031309) do
+ActiveRecord::Schema.define(:version => 20120709043428) do
 
   create_table "accounts", :force => true do |t|
     t.string   "username"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20120709031309) do
     t.boolean  "replied"
     t.integer  "account_id"
     t.boolean  "starred"
+    t.integer  "waiting_reply"
   end
 
   create_table "responses", :force => true do |t|

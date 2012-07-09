@@ -3,7 +3,8 @@ class Profile < ActiveRecord::Base
   has_many :sheduled_messages
   belongs_to :account
 
-  scope :to_reply, where(:replied => true).order("updated_at DESC")
+  scope :to_reply, where(replied: true, waiting_reply: false).order("updated_at DESC")
+  scope :starred, where(starred: true )
   
   # User can be String, Integer or Twitter::User
   def self.make_from(user, account = nil)

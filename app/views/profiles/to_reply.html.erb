@@ -1,57 +1,71 @@
-<% @profiles.each_with_index do |p,i| %>
 
-<!-- START: tweetBox -->
-<div class="row tweetBox">
-	<div class="span7">
+<%= form_for(@sheduled_messages) do |f| %>
 
-		<div class="row">
-			<div class="span1">
-				<a class="" href="#">
-					<%= image_tag p.profile_image_url, style: 'float:left; margin-right: 3px;', class: :avatar %>
-					<strong class="fullname"><%= p.name %></strong>
-					<br/>
-					<span class="username"><s>@</s><b><%= p.screen_name %></b></span>
-				</a>
-				<div style="display: none" class="hiddenData">
-				  <label class="label label-info" style="float: right; width: auto;">@<%= p.screen_name %></label> <br/>
-				  <%= p.location %><br/>
-				  (<%= p.followers_count %> followers)<br>
-				  <small><%= p.description %> - <%= link_to p.url %></small>
+	<% @profiles.each_with_index do |p,i| %>
+
+	<!-- START: tweetBox -->
+	<div class="row tweetBox">
+		<div class="span7">
+
+			<div class="row">
+				<div class="span1">
+					<a class="" href="#">
+						<%= image_tag p.profile_image_url, style: 'float:left; margin-right: 3px;', class: :avatar %>
+						<strong class="fullname"><%= p.name %></strong>
+						<br/>
+						<span class="username"><s>@</s><b><%= p.screen_name %></b></span>
+					</a>
+
+					<div style="display: none" class="hiddenData">
+					  <label class="label label-info" style="float: right; width: auto;">@<%= p.screen_name %></label> <br/>
+					  <%= p.location %><br/>
+					  (<%= p.followers_count %> followers)<br>
+					  <small><%= p.description %> - <%= link_to p.url %></small>
+					  <!-- <a class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i> Delete</a> -->
+					</div>
 				</div>
+
+				<div class="span6">
+					<% p.tweets.each do |t| %>
+					  <p class="<%= "right" if t.from_account %>"><%= t.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %></p>
+					<% end %>
+
+					<% p.sheduled_messages.each do |sm| %>
+					  <p class="right" style="color: red"><%= sm.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %></p>
+					<% end %>
+				</div>  
 			</div>
 
-			<div class="span6">
-				<% p.tweets.each do |t| %>
-				  <p class="<%= "right" if t.from_account %>"><%= t.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %></p>
-				<% end %>
-
-				<% p.sheduled_messages.each do |sm| %>
-				  <p class="right" style="color: red"><%= sm.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %></p>
-				<% end %>
-			</div>  
+			
 		</div>
+		<div class="span5">
+			
+				<%= f.hidden_field(:account_id, {:value => p.account_id, :index => i}) %>
+				<%= f.hidden_field(:profile_id, {:value => p.id, :index => i}) %>
+				<%= f.text_area :text, cols: 65,rows: 3, class: "replyBox", tabindex: i+1, index: i %>
+			
 
-		
+			<p>
+				<% @responses.each do |r| %>
+					<button class="btn btn-mini btn-info text-response" title="<%= r.text %>"><%= r.alias %></button>
+				<% end %>
+
+				<!-- <span class="label"><a href="" class="">asesoro-email</a></span> -->
+
+				<button class="btn btn-mini btn-danger clean" href="#">
+					<i class="icon-remove icon-white"></i>
+				</button>
+			</p>
+		</div>
 	</div>
-	<div class="span5">
-		<textarea name="" id="" cols="65" rows="2" class="replyBox" tabindex="<%= i+1 %>"></textarea>
-		<p>
-			<% @responses.each do |r| %>
-				<button class="btn btn-mini btn-info" title="<%= r.text %>"><%= r.alias %></button>
-			<% end %>
+	<!-- END: tweetBox -->
 
-			<!-- <span class="label"><a href="" class="">asesoro-email</a></span> -->
+	<hr />
+	<% end %>
 
-			<button class="btn btn-mini btn-danger clean" href="#">
-				<i class="icon-remove icon-white"></i>
-			</button>
-		</p>
-	</div>
-</div>
-<!-- END: tweetBox -->
 
-<hr />
 <% end %>
+
 
 <script type="text/javascript">
 	$('.avatar').popover({
@@ -59,13 +73,26 @@
 			return $(this).clone().wrap('<div>').parent().append( $(this).parent().find('strong').text() ).html();
 		},
 		content: function(){ 
-			return $(this).parents('.span1').find('.hiddenData').html();
+			return $(this).closest('.span1').find('.hiddenData').html();
 		},
 		placement: 'bottom'
 	});
 
 	$('.span5 button.clean').click(function(e) {
 		e.preventDefault();
-		$(this).parents('div').find('textarea').val('').focus();
+		$(this).closest('div').find('textarea').val('').focus();
 	});
+
+	$('.span5 button.text-response').click(function(e) {
+		e.preventDefault();
+		$(this).closest('div').find('textarea').val( $(this).attr('title') ).focus();
+	});
+
+	$('ul.nav:last').append('<button class="btn btn-success" href="#" id="sendAll">Send All</button>');
+	$('#sendAll').click(function(e) {
+		e.preventDefault();
+		$('#new_sheduled_message').submit();
+	});
+
 </script>
+

@@ -47,17 +47,30 @@ class SheduledMessagesController < ApplicationController
   # POST /sheduled_messages
   # POST /sheduled_messages.json
   def create
-    @sheduled_message = SheduledMessage.new(params[:sheduled_message])
 
-    respond_to do |format|
-      if @sheduled_message.save
-        format.html { redirect_to @sheduled_message, notice: 'Sheduled message was successfully created.' }
-        format.json { render json: @sheduled_message, status: :created, location: @sheduled_message }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @sheduled_message.errors, status: :unprocessable_entity }
+    if params[:sheduled_message].has_key? '0'
+      params[:sheduled_message].each do |sm|
+        # raise sm.last.to_hash.to_yaml
+        SheduledMessage.create sm.last.to_hash
+      end
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Messages was successfully queued.' }
+      end
+    else
+      @sheduled_message = SheduledMessage.new(params[:sheduled_message])
+
+      respond_to do |format|
+        if @sheduled_message.save
+          format.html { redirect_to @sheduled_message, notice: 'Sheduled message was successfully created.' }
+          format.json { render json: @sheduled_message, status: :created, location: @sheduled_message }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @sheduled_message.errors, status: :unprocessable_entity }
+        end
       end
     end
+
+    
   end
 
   # PUT /sheduled_messages/1

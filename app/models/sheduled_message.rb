@@ -1,6 +1,16 @@
 class SheduledMessage < ActiveRecord::Base
   belongs_to :account
   belongs_to :profile
+
+  validates :text, :presence => true
+
+  after_save do |sm|
+    if !sm.profile_id.nil? then
+      p = Profile.find(sm.profile_id)
+      p.waiting_reply = true
+      p.save
+    end
+  end
   
   def self.send_all
     sms = self.all
@@ -22,7 +32,7 @@ class SheduledMessage < ActiveRecord::Base
       if Tweet.new(data).save
         self.delete
       else  
-        raise "Error guardando tweet"+self.text
+        raise "Error guardando tweet "+self.text
       end
   end
 end
