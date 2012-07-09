@@ -40,6 +40,7 @@ class Tweet < ActiveRecord::Base
         
         #actualizamos replied en profile
         p.update_attribute(:replied, true) unless p.replied == true
+        p.update_attribute(:waiting_reply, false) unless p.waiting_reply == false
       end
       a.save
       
