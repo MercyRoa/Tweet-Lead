@@ -4,6 +4,10 @@ class SheduledMessage < ActiveRecord::Base
 
   validates :text, :presence => true
 
+  before_save do |sm|
+    sm.text = "@#{sm.profile.screen_name} #{sm.text}" unless sm.text =~ /@#{sm.profile.screen_name}/
+  end
+
   after_save do |sm|
     if !sm.profile_id.nil? then
       p = Profile.find(sm.profile_id)
