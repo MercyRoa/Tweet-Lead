@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
   def to_reply
     @profiles = Profile.to_reply.limit(10)
     @sheduled_messages = SheduledMessage.new
+    @responses = Response.all
 
     respond_to do |format|
       format.html # show.html.erb

@@ -36,15 +36,13 @@
 	<div class="span5">
 		<textarea name="" id="" cols="65" rows="2" class="replyBox" tabindex="<%= i+1 %>"></textarea>
 		<p>
-			<button class="btn btn-mini btn-info">desayuno</button>
-			<button class="btn btn-mini btn-info">en peso?</button>
-			<button class="btn btn-mini btn-info">asesoro-email</button>
-			<button class="btn btn-mini btn-info">enseño</button>
-			<button class="btn btn-mini btn-info">escribiste?</button>
+			<% @responses.each do |r| %>
+				<button class="btn btn-mini btn-info" title="<%= r.text %>"><%= r.alias %></button>
+			<% end %>
 
 			<!-- <span class="label"><a href="" class="">asesoro-email</a></span> -->
 
-			<button class="btn btn-mini btn-danger" href="#">
+			<button class="btn btn-mini btn-danger clean" href="#">
 				<i class="icon-remove icon-white"></i>
 			</button>
 		</p>
@@ -63,6 +61,11 @@
 		content: function(){ 
 			return $(this).parents('.span1').find('.hiddenData').html();
 		},
-		placement: 'right'
+		placement: 'bottom'
+	});
+
+	$('.span5 button.clean').click(function(e) {
+		e.preventDefault();
+		$(this).parents('div').find('textarea').val('').focus();
 	});
 </script>
