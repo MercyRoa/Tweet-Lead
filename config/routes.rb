@@ -15,6 +15,8 @@ TweetLead::Application.routes.draw do
 
   resources :profiles
 
+  resources :searches_results
+
   match "/auth/twitter/callback" => "accounts#save_tokens"
   
   match '/extract_mentions' => 'tweets#extract_mentions'
