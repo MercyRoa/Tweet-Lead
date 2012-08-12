@@ -4,3 +4,10 @@ log/*.log
 tmp/
 .sass-cache/
 /nbproject/private/
+.idea/dataSources.ids
+
+.idea/dataSources.xml
+
+.idea/tweetlead.iml
+
+.idea/workspace.xml
