@@ -99,42 +99,36 @@ class SearchesController < ApplicationController
   end
   
   attr_accessor :normal_tweets
+  # test method for call launch_senders from console w/o create controller
+  def self.ls
+    sc = self.new
+    sc.launch_senders
+  end
   def launch_senders
     accounts = Account.all
-    replies = SearchesResult.select([:id, :reply]).to_sent
-    self.normal_tweets = File.readlines("vendor/normal.txt").map { |i| SearchesResult.new({:reply => i})  }
-    
-    10.times { puts "-------------"  }
-    sleep 1
-    puts "Iniciando en 3..."
-    sleep 1
-    puts "2.."
-    sleep 1
-    puts "1.."
-    sleep 1
-    puts " DESPEGUEEEEE "
-    10.times { puts "-------------"  }
-    
-    # cuerpos para los robotcitos
+    replies = SearchesResult.select([:id, :reply]).to_sent # .limit 36
+    self.normal_tweets = File.readlines("vendor/normal.txt").map { |i| SearchesResult.new({:reply => i}) }
+    mutex = Mutex.new
+
     threads = []
     accounts.each do |a|
       threads << Thread.new {
-        while !replies.empty? #Mientras hayan huevos
-          to_send = replies.slice!(0..4) + self.normal_tweets.slice(0..4)
-          puts " ---> enviando desde #{a.username} #{to_send.count} mensajes"
-          self.sender a, to_send.shuffle
+        until replies.empty?
+          to_send = []
+          mutex.synchronize do
+            to_send = replies.slice!(0..4) + self.normal_tweets.sample(4)
+          end
+          puts " @#{a.username}: #{to_send.map(&:id).join(', ')}"
+          to_send.shuffle.each do |sr|
+            sr.account = a
+            sr.tweet_it #_test
+            sleep(rand(10..30).seconds) #80..200
+          end
+          sleep 0.1
         end
-        puts "-----------------> terminado thread #{a.username}"
+        puts "Finished thread #{a.username}"
       }
     end
-  end
-  
-  def sender a, to_send
-    to_send.each do |sr|
-      puts "#{a.username}: #{sr.id} #{sr.reply}"
-      a.tc.update sr.reply
-      sr.update_attribute(:sent, true) if sr.id
-      sleep(rand(80..200).seconds)
-    end
+    puts threads.join
   end
 end

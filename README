@@ -1,10 +1,17 @@
 == Welcome to TweetLead on Rails
+ * Extract Mentions: 
+ * Get All Timelines
+ * Send Scheduled Messages
+ * Process Searches (retrieve messages from search)
+ * Launch Seenders
 
-Current status of work
+
+
+== Current status of work
  * Last day we made more modular the mention extractor moving some code to Profile
  * Make work the Account::get_timeline
 
-Next work flow:
+== Next work flow:
  * Move the data structuration to a independent function at it will be used in get_timeline and get_mentions
  * Make a Account's method named get_mentions and do the foreach inside the Tweets Controller, get_mentions shouldnt be a Tweets method
 _____
