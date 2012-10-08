@@ -27,7 +27,10 @@
 
 				<div class="span6">
 					<% p.tweets.each do |t| %>
-					  <p class="<%= "right" if t.from_account %>"><%= t.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %> <small><%= time_ago_in_words t.created_at %></small></p>
+					  <p class="<%= "right" if t.from_account %>">
+                        <small><%= time_ago_in_words t.created_at %></small>
+                        <%= t.text.gsub(/@(\w+)(?!\.)/, "<b>@\\1</b>").html_safe %>
+                      </p>
 					<% end %>
 
 					<% p.sheduled_messages.each do |sm| %>

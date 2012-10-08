@@ -16,7 +16,7 @@
       <tr>
         <td>@<%= searches_result.username %> <%= searches_result.tweet %></td>
         <td><%= searches_result.reply %></td>
-        <td><%=l searches_result.created_at %></td>
+        <td><%=time_ago_in_words searches_result.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_searches_result_path(searches_result), :class => 'btn btn-mini' %>

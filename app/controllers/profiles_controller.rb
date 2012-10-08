@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
   end
 
   def to_reply
-    @profiles = Profile.to_reply.limit(10)
+    @profiles = Profile.to_reply.limit(30)
     @sheduled_messages = SheduledMessage.new
     @responses = Response.all
 
