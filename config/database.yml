@@ -8,19 +8,19 @@ development:
   adapter: mysql2
   database: tweetlead_dev
   pool: 5
-  username: root
+  username: admin
 
 test:
   adapter: mysql2
   database: tweetlead_test
   pool: 5
-  username: root
+  username: admin
 
 production:
   adapter: mysql2
   database: tweetlead
   pool: 5
-  username: root
+  username: admin
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

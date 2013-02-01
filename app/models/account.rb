@@ -85,6 +85,37 @@ class Account < ActiveRecord::Base
     self.order("updated_at").first
   end
   
-  
-  
+  class << self
+
+    attr_accessor :normal_tweets
+    # this send SearchResult + Normal Tweets
+    def launch_senders
+      puts "lanzando robots"
+      accounts = Account.all
+      replies = SearchesResult.select([:id, :reply]).to_sent # .limit 36
+      self.normal_tweets = File.readlines("vendor/normal.txt").map { |i| SearchesResult.new({:reply => i}) }
+      mutex = Mutex.new
+
+      threads = []
+      accounts.each do |a|
+        threads << Thread.new {
+          until replies.empty?
+            to_send = []
+            mutex.synchronize do
+              to_send = replies.slice!(0..4) + self.normal_tweets.sample(4)
+            end
+            puts " @#{a.username}: #{to_send.map(&:id).join(', ')}"
+            to_send.shuffle.each do |sr|
+              sr.account = a
+              sr.tweet_it #_test
+              sleep(rand(80..200).seconds) #80..200
+            end
+            sleep 0.1
+          end
+          puts "Finished thread #{a.username}"
+        }
+      end
+      puts threads.join
+    end
+  end
 end

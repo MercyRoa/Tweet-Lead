@@ -100,10 +100,13 @@ class SearchesController < ApplicationController
   
   attr_accessor :normal_tweets
   # test method for call launch_senders from console w/o create controller
+=begin
   def self.ls
     sc = self.new
     sc.launch_senders
   end
+
+  ## this method was moved to account.rb
   def launch_senders
     accounts = Account.all
     replies = SearchesResult.select([:id, :reply]).to_sent # .limit 36
@@ -112,17 +115,21 @@ class SearchesController < ApplicationController
 
     threads = []
     accounts.each do |a|
+      puts "Lanzando account... #{a.username}"
       threads << Thread.new {
+        puts "\r\ndentro de thread, por enviar: #{replies.count}"
         until replies.empty?
+          puts " UNTIL  #{a.username}"
           to_send = []
           mutex.synchronize do
+            puts "entrando a semaforo #{a.username}"
             to_send = replies.slice!(0..4) + self.normal_tweets.sample(4)
           end
           puts " @#{a.username}: #{to_send.map(&:id).join(', ')}"
           to_send.shuffle.each do |sr|
             sr.account = a
             sr.tweet_it #_test
-            sleep(rand(10..30).seconds) #80..200
+            sleep(rand(1..3).seconds) #80..200
           end
           sleep 0.1
         end
@@ -131,4 +138,6 @@ class SearchesController < ApplicationController
     end
     puts threads.join
   end
+=end
+
 end

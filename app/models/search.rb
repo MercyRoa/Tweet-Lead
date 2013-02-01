@@ -1,6 +1,8 @@
+
 class Search < ActiveRecord::Base
-  #que haga las busqueda
-  
+  MAX_RESULTS_PER_REQUEST = 1000
+
+  #que haga las busquedas
   def process 
      
     #a = Account.oldest_used
@@ -9,16 +11,15 @@ class Search < ActiveRecord::Base
 
     tweets, data, self.temp_usernames = [],[],[]
     
-    config = {:rpp => 100, :page => 1, :result_type => "recent" }
+    config = {:count => 100, :result_type => "recent" }
     config[:since_id] = self.last_tweet_id.to_i unless self.last_tweet_id.nil?  
     
     while true
-      puts "pagina " + config[:page].to_s
-        
       r = a.tc.search(self.search + " -rt -http -#ff", config)
-      tweets += r 
-      break if r.empty? || config[:page] == 15
-      config[:page] += 1 
+      config[:max_id] = r.results.last.id - 1
+      tweets += r.results
+      puts "Found... #{tweets.count} tweets in total"
+      break if r.results.empty? || tweets.count > MAX_RESULTS_PER_REQUEST
     end
     
     # raise tweets.map{|t| "@" + t.from_user + ": " + t.text }.to_yaml 
@@ -51,10 +52,10 @@ class Search < ActiveRecord::Base
       end
     end
     
-    self.save_log tweets.count, data.count, config[:page]
+    self.save_log tweets.count, data.count, 1
     
     
-    raise data.map{|t| "@" + t.username + ": " + t.tweet}.to_yaml
+    data.map{|t| "@" + t.username + ": " + t.tweet}.to_yaml
   end
   
   # Ckeck that is not a repetead user, should be called with reject
