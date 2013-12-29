@@ -9,13 +9,13 @@ gem 'sqlite3'
 gem 'mysql2'
 gem 'activerecord-import', '>= 0.2.0'
 
-gem 'twitter'
+gem 'twitter', '4.8.1' # Global configuration removed since version 5 =(
 gem 'oauth'
 gem 'yaml_db'
 
 gem 'omniauth-twitter'
 
-gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "twitter-bootstrap-rails", '2.2.6' #:git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -48,4 +48,12 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :development do
+  gem 'debugger', :require => 'debugger'
+  # gem "therubyracer"
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-remote'
 end

@@ -29,6 +29,9 @@ TweetLead::Application.routes.draw do
   
  match '/launch_senders' => 'searches#launch_senders'
   
+ match '/accounts/:id/follow/:user' => 'accounts#follow', :as => :follow
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

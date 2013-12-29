@@ -31,10 +31,10 @@ class Account < ActiveRecord::Base
       
       next if p == false;
       
-      data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
-          'in_reply_to_screen_name', 'in_reply_to_status_id', 
-          'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
-          'retweet_count', 'retweeted', 'source', 'text'
+      data = t.to_hash.select{ |k,v| [ :coordinates, :created_at,
+          :in_reply_to_screen_name, :in_reply_to_status_id, 
+          :in_reply_to_status_id, :in_reply_to_user_id, :in_reply_to_user_id_str,
+          :retweet_count, :retweeted, :source, :text
         ].include?(k)
       }
       # seteamos datos extras
@@ -79,6 +79,12 @@ class Account < ActiveRecord::Base
       
     self.twitter_client
   end
+
+  def follow user
+    user = Integer user rescue user
+    self.tc.follow user
+    true 
+  end
  
   # Get the oldest used account 
   def self.oldest_used
@@ -90,13 +96,15 @@ class Account < ActiveRecord::Base
     attr_accessor :normal_tweets
     # this send SearchResult + Normal Tweets
     def launch_senders
-      puts "lanzando robots"
       accounts = Account.all
-      replies = SearchesResult.select([:id, :reply]).to_sent # .limit 36
+      replies = SearchesResult.select([:id, :reply]).to_sent.limit 30
+      puts "lanzando robots de twitteo con #{replies.count} tweets a enviar"
+
       self.normal_tweets = File.readlines("vendor/normal.txt").map { |i| SearchesResult.new({:reply => i}) }
       mutex = Mutex.new
 
       threads = []
+      Thread.abort_on_exception = true
       accounts.each do |a|
         threads << Thread.new {
           until replies.empty?
@@ -114,8 +122,10 @@ class Account < ActiveRecord::Base
           end
           puts "Finished thread #{a.username}"
         }
+        threads.last.abort_on_exception = true
       end
-      puts threads.join
+      # puts threads.join
+      threads.each { |t| t.join }
     end
   end
 end

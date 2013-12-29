@@ -9,16 +9,20 @@
 
 			<div class="row">
 				<div class="span1">
-					<a class="" href="#">
-						<%= image_tag p.profile_image_url, style: 'float:left; margin-right: 3px;', class: :avatar %>
+					<%= image_tag p.profile_image_url, style: 'float:left; margin-right: 3px;', class: :avatar %>
+					<a class="" href="/profiles/<%= p.id %>">
 						<strong class="fullname"><%= p.name %></strong>
+					</a>
 						<br/>
+					<a class="" href="http://twitter.com/<%= p.screen_name %>" target="_blank">
 						<span class="username"><s>@</s><b><%= p.screen_name %></b></span>
 					</a>
+					<br/>
+					<small><%= link_to "Follow", follow_path(p.account.id, p.twitter_id) %></small>
 
 					<div style="display: none" class="hiddenData">
 					  <label class="label label-info" style="float: right; width: auto;">@<%= p.screen_name %></label> <br/>
-					  <%= p.location %><br/>
+					  <%= p.location %> - <%= p.time_zone %><br/>
 					  (<%= p.followers_count %> followers)<br>
 					  <small><%= p.description %> - <%= link_to p.url %></small>
 					  <!-- <a class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i> Delete</a> -->
@@ -72,6 +76,8 @@
 
 <script type="text/javascript">
 	$('.avatar').popover({
+		trigger: "hover",
+		html: true,
 		title: function(){
 			return $(this).clone().wrap('<div>').parent().append( $(this).parent().find('strong').text() ).html();
 		},

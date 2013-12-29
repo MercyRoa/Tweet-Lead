@@ -20,9 +20,9 @@ task :send_messages => :environment do
   puts 'end'
 end
 
-desc 'process_searches'
-task :process_all => :environment do
-  puts 'process_all'
+desc 'get_searches'
+task :get_searches => :environment do
+  puts 'get_searches'
   Search.all.each do |s|
     s.process 
   end
@@ -37,9 +37,14 @@ task :launch_senders => :environment do
 end
 
 task :all => :environment do
-  Rake::Task["extract_mentions"].execute
-  Rake::Task["get_all_timeline"].execute
-  Rake::Task["send_messages"].execute
-  Rake::Task["process_all"].execute
-  Rake::Task["launch_senders"].execute
+  while true do
+
+    Rake::Task["extract_mentions"].execute
+    Rake::Task["get_all_timeline"].execute
+    Rake::Task["send_messages"].execute
+    Rake::Task["get_searches"].execute
+    Rake::Task["launch_senders"].execute
+    
+    sleep 60
+  end
 end

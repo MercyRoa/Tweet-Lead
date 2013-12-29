@@ -1,3 +1,4 @@
+require 'debugger'
 
 class Search < ActiveRecord::Base
   MAX_RESULTS_PER_REQUEST = 1000
@@ -16,10 +17,11 @@ class Search < ActiveRecord::Base
     
     while true
       r = a.tc.search(self.search + " -rt -http -#ff", config)
+      break if r.results.empty? || tweets.count > MAX_RESULTS_PER_REQUEST
+      
       config[:max_id] = r.results.last.id - 1
       tweets += r.results
       puts "Found... #{tweets.count} tweets in total"
-      break if r.results.empty? || tweets.count > MAX_RESULTS_PER_REQUEST
     end
     
     # raise tweets.map{|t| "@" + t.from_user + ": " + t.text }.to_yaml 
@@ -27,21 +29,29 @@ class Search < ActiveRecord::Base
 
       replies = File.readlines "vendor/replies/" + self.responses
 
-      tweets.reject { |t| self.repeat_user(t.from_user) }.each_with_index do |t,i|
-        puts "#{i}. Tweet de @" + t.from_user
-        reply = "@#{t.from_user} " +  replies[rand(replies.count)]
+      our_accounts_list = Account.all.map{|x| x.username}
+      blocked_keywords = Keyword.all.map{|x| x.name}
 
-        #check encoding and length
+      tweets
+        .reject { |t| t.text.include? 'http' } 
+        .reject { |t| our_accounts_list.include? t.from_user } # Reject if are our own accounts
+        .reject { |t| t.text.downcase.split(' ').any? {|i| blocked_keywords.include? i }  } # Reject blocked keywords
+        .reject { |t| self.repeat_user(t.from_user) }
+        .each_with_index do |t,i|
+          puts "#{i}. Tweet de @" + t.from_user
+          reply = "@#{t.from_user} " +  replies[rand(replies.count)]
 
-        #apply filters
+          #check encoding and length
 
-        data << SearchesResult.new({
-            :account_id => accounts.sample.id, 
-            :username => t.from_user, 
-            :tweet => t.text, 
-            :reply => reply,
-            :tweeted_at => t.created_at
-        })
+          #apply filters
+
+          data << SearchesResult.new({
+              :account_id => accounts.sample.id, 
+              :username => t.from_user, 
+              :tweet => t.text, 
+              :reply => reply,
+              :tweeted_at => t.created_at
+          })
       end
 
       self.last_tweet_id = tweets.first.id

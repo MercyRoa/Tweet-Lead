@@ -8,6 +8,10 @@
  * NO: require twitter/bootstrap
 */
 
+#main{
+	margin-top: 61px;
+}
+
 .replyBox{ 
 	height: 41px;
 	width: 300px;

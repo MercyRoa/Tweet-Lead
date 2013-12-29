@@ -58,6 +58,15 @@ class AccountsController < ApplicationController
 		@account = Account.find(params[:id])
 	end
 
+	# GET /accounts/1/follow/1
+	def follow
+		@account = Account.find(params[:id])
+		@account.follow(params[:user])
+		respond_to do |format|
+			format.html { redirect_to root_path, notice: 'User followed successfully.' }
+		end
+	end
+
 	# POST /accounts
 	# POST /accounts.json
 	def create

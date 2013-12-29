@@ -16,7 +16,7 @@ class SearchesResult < ActiveRecord::Base
       end
     rescue Exception => e  
       puts e.message  
-      puts e.backtrace.inspect  
+      puts e.backtrace.inspect.to_yaml  
     end
   end
 end

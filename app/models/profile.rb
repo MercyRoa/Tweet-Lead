@@ -23,14 +23,15 @@ class Profile < ActiveRecord::Base
     
     return false if user.nil? 
 
-    data = user.to_hash.select{ |k,v| [
-        'description', 'followers_count', 'friends_count',
-        'lang', 'location', 'name', 'profile_image_url',
-        'screen_name', 'protected', 'time_zone', 'url', 'utc_offset'].include?(k) }
+    data = user.to_hash.select{ |k,v| 
+      [:description, :followers_count, :friends_count,
+        :lang, :location, :name, :profile_image_url,
+        :screen_name, :protected, :time_zone, :url, :utc_offset].include?(k) 
+    }
     
     data['account_id'] = account.id
     data['twitter_id'] = user.id
-    
+
     p = self.new data
     p.save
     p #p.save returs true, so we have to return full profile object

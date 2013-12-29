@@ -49,10 +49,10 @@ class Tweet < ActiveRecord::Base
   end
   
   def self.convert_from_status t
-    data = t.to_hash.select{ |k,v| [ 'coordinates', 'created_at',
-        'in_reply_to_screen_name', 'in_reply_to_status_id', 
-        'in_reply_to_status_id', 'in_reply_to_user_id', 'in_reply_to_user_id_str',
-        'retweet_count', 'retweeted', 'source', 'text'
+    data = t.to_hash.select{ |k,v| [ :coordinates, :created_at,
+        :in_reply_to_screen_name, :in_reply_to_status_id, 
+        :in_reply_to_status_id, :in_reply_to_user_id, :in_reply_to_user_id_str,
+        :retweet_count, :retweeted, :source, :text
       ].include?(k)
     }
     data['status_id'] = t.id
