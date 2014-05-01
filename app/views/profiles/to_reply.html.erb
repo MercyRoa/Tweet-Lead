@@ -19,6 +19,8 @@
 					</a>
 					<br/>
 					<small><%= link_to "Follow", follow_path(p.account.id, p.twitter_id) %></small>
+					<br/>
+					<small><%= link_to 'Destroy', p, confirm: 'Are you sure?', method: :delete #, remote: true %></small>
 
 					<div style="display: none" class="hiddenData">
 					  <label class="label label-info" style="float: right; width: auto;">@<%= p.screen_name %></label> <br/>

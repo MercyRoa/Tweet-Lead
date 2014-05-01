@@ -89,7 +89,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to profiles_url }
+      format.html { redirect_to root_path }
       format.json { head :ok }
     end
   end

@@ -110,15 +110,15 @@ class Account < ActiveRecord::Base
           until replies.empty?
             to_send = []
             mutex.synchronize do
-              to_send = replies.slice!(0..4) + self.normal_tweets.sample(4)
+              to_send = replies.slice!(0..4) + self.normal_tweets.sample(3)
             end
             puts " @#{a.username}: #{to_send.map(&:id).join(', ')}"
             to_send.shuffle.each do |sr|
               sr.account = a
               sr.tweet_it #_test
-              sleep(rand(80..200).seconds) #80..200
+              sleep(rand(480..700).seconds) #80..200
             end
-            sleep 0.1
+            sleep 1
           end
           puts "Finished thread #{a.username}"
         }
